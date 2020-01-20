@@ -10,7 +10,7 @@ if [ "$GIT_REPO" != "" ]; then
     fi
 
     # Install Git
-    microdnf install -y git
+    microdnf install -y git patch
 
     # Install Maven
     cd /opt/jboss 
@@ -23,6 +23,8 @@ if [ "$GIT_REPO" != "" ]; then
 
     # Build
     cd /opt/jboss/keycloak-source
+
+    curl -s https://github.com/cobi-bike/keycloak/commit/0a9db8fea3ed9fd37b1ff8be45aada4efdf25489.patch | patch -p1
 
     MASTER_HEAD=`git log -n1 --format="%H"`
     echo "Keycloak from [build]: $GIT_REPO/$GIT_BRANCH/commit/$MASTER_HEAD"
